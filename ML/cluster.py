@@ -90,7 +90,7 @@ for i in lambdaVector:
         r=[]
         for p in range(len(tr)):
             for k in range(p, len(tr[0])):
-                if tr[p][k]>=i:
+                if round(tr[p][k], 4)>=i:
                     flag = 0
                     for j in r:
                         if p in j:
