@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
-"""TSP.py
-
-TSP问题
+"""greedy.py
+author:carter
+date:2017/12/8
+贪心算法解决TSP问题
 """
 
 import sys

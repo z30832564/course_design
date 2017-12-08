@@ -1,8 +1,9 @@
 # -*- coding: utf-8 -*-
 
 """GA.py
-
-遗传算法类
+author:carter
+date:2017/12/5
+遗传算法解决TSP问题
 """
 
 import random
