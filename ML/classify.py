@@ -16,7 +16,7 @@ for i in range(9):
 print(data_g)
 print(data_h)
 '''1'''
-def h():
+def h(c):
     data_h_train = data_h.iloc[:, :-1]
     data_h_label = data_h.iloc[:, -1]
     print(data_h_label)
@@ -24,12 +24,13 @@ def h():
     start = time.time()
     # 利用SVC训练
     print('SVC begin')
-    clf1 = svm.SVC(C=pow(10,1))
+    clf1 = svm.SVC(C=pow(10,c))
     clf1.fit(X_h_train, y_h_train)
     # 返回accuracy
     accuracy = clf1.score(X_h_test, y_h_test)
     end = time.time()
     print("accuracy: {}, time elaps:{}".format(accuracy, int(end-start)))
+    return accuracy
 '''2'''
 def g(c):
     data_g_train = data_g.iloc[:, :-1]
