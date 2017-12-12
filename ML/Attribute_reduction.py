@@ -1,4 +1,11 @@
 # -*- coding: utf-8 -*-
+"""Attribute_reduction.py
+author:carter
+date:2017/12/8
+粗糙集属性约简
+"""
+
+
 import pandas as pd
 import numpy as np
 import itertools

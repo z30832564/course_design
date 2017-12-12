@@ -1,4 +1,10 @@
 # -*- coding: utf-8 -*-
+"""greedy.py
+author:carter
+date:2017/11/28
+调用SVM库进行分类
+"""
+
 import pandas as pd
 import re
 import matplotlib.pyplot as plt

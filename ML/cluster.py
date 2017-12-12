@@ -1,4 +1,10 @@
 #-*- coding: utf-8 -*-
+"""greedy.py
+author:carter
+date:2017/12/6
+模糊动态聚类
+"""
+
 import pandas as pd
 import numpy as np
 import math

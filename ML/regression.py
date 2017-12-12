@@ -1,4 +1,10 @@
 #-*- coding: utf-8 -*-
+"""greedy.py
+author:carter
+date:2017/12/1
+bp神经网络拟合预测数据
+"""
+
 import numpy as np
 import pandas as pd
 import math
