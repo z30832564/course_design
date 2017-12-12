@@ -27,7 +27,7 @@ def distance(a, b):
     d = math.sqrt((a[0]-b[0])**2 + (a[1]-b[1])**2)
     return d
 
-#评价函数
+#寻找邻域中的做好解
 def findBestPath(orders,data):
     DISTANCE = []
     for j in range(len(orders)):
@@ -39,17 +39,23 @@ def findBestPath(orders,data):
     index = DISTANCE.index(min(DISTANCE))
     return orders[index], index
 
+
+#适应度函数
 def sitisfy(path, data):
     dis = 0
     for i in range(len(path) - 1):
         dis += distance(data[path[i]], data[path[i + 1]])
     dis += distance(data[path[-1]], data[path[0]])
     return dis
+
+#更新禁忌表
 def upDateTS(ts_table):
     for i in range(len(ts_table)):
         for j in range(len(ts_table[0])):
             if ts_table[i][j] != 0:
                 ts_table[i][j] -= 1
+
+#转换大小
 def changeMaxMin(a, b):
     if a > b:
         return b, a
@@ -66,6 +72,8 @@ def comMean(a):
     y_mean = sum(y_)/len(a)
     return x_mean, y_mean
 
+
+#切分数据
 def divideData(k, mypoint, data):
     fix_x, fix_y = comMean(mypoint)
     index1 = []
