@@ -11,17 +11,17 @@ import math
 #read_data
 ################################################################
 data = pd.read_table('heart.txt', sep='\s+')
-data = data.iloc[:10, 0:12]
+data = data.iloc[:7, 0:12]
 for i in range(len(data.iloc[0])):
     data[str(i)] = (data[str(i)]-min(data[str(i)]))/(max(data[str(i)])-min(data[str(i)]))
 data = np.array(data)
 data = data
 print('--------------------数据为:----------------------')
-data=np.array([[1,1],
-               [1,2],
-              [2,3],
-               [10000,10100],
-               [10000,10110]])
+data=np.array([[80,10,6,2],
+               [50,1,6,4],
+              [90,6,4,6],
+               [40,5,7,3],
+               [10,1,2,4]])
 
 print(data)
 #一些函数
@@ -94,6 +94,7 @@ lambdaVector = (np.unique(tr))
 for i in range(len(lambdaVector)):
     lambdaVector[i] = round(lambdaVector[i],4)
 lambdaVector = list(set(lambdaVector))
+lambdaVector.sort()
 print('--------------------lambda集合为：---------------------')
 print(lambdaVector)
 r = []
@@ -131,6 +132,8 @@ for i in lambdaVector:
         R.append(r)
 
 print('-------------------动态聚类图----------------')
+lambdaVector_reverse = lambdaVector.copy()
+lambdaVector_reverse.reverse()
 for i in range(len(data)):
     print(i, '    ', end='')
 print('\n')
@@ -175,7 +178,7 @@ for i in range(1, len(log_)):
             print('___', end='')
         if log_[i][j] == 3:
             print('_!_', end='')
-    print('----', lambdaVector[i-1], end='\n')
+    print('----', lambdaVector_reverse[i-1], end='\n')
 
 #寻找最好lambda时一些函数
 ############################################################
@@ -190,7 +193,10 @@ def comdif(lambdaV):
             class_son.append(data[j])
         class_son = np.array(class_son)
         son = son + len(R[index][i]) * np.dot((meanplace(class_son) - meanplace(data)), (meanplace(class_son)-meanplace(data)).T)
-    son = float(son/(r_son-1))
+    if r_son == 1:
+        son = 0
+    if r_son !=1:
+        son = float(son/(r_son-1))
     return son
 #计算分母
 def comSame(lambdaV):
@@ -198,19 +204,19 @@ def comSame(lambdaV):
     r_mother = len(R[index])
     mother = 0
     for i in range(len(R[index])):
-        for p in range(len(R[index])):
-            class_mother_one = []
+        class_mother_one = []
+        for j in R[index][i]:
+            class_mother_one.append(data[j])
+        for j in R[index][i]:
             class_mother_two = []
-            for j in R[index][i]:
-                class_mother_one.append(data[j])
-            for j in R[index][p]:
-                class_mother_two.append(data[j])
+            class_mother_two.append(data[j])
             class_mother_one = np.array(class_mother_one)
             class_mother_two = np.array(class_mother_two)
-            if len(data)-r_mother == 0:
-                continue
             mother = mother + np.dot((meanplace(class_mother_one)-meanplace(class_mother_two)), (meanplace(class_mother_one)-meanplace(class_mother_two)).T)
-            mother = float(mother/(len(data)-r_mother))
+    if len(data) - r_mother != 0:
+        mother = float(mother/(len(data)-r_mother))
+    if len(data) - r_mother == 0:
+        mother = 10000
     return mother
 def meanplace(a):
     mp = np.zeros(len(data[0]))
@@ -222,9 +228,12 @@ def meanplace(a):
 ##################################################################
 def findBestLambda():
     F = []
-    for i in lambdaVector:
-        if comSame(i) != 0:
-            F.append(float(comdif(i)/comSame(i)))
+    for i in range(len(lambdaVector)):
+        if comSame(lambdaVector[i]) != 0:
+            F.append(float(comdif(lambdaVector[i])/comSame(lambdaVector[i])))
+            print(float(comdif(lambdaVector[i])/comSame(lambdaVector[i])))
+        if comSame(lambdaVector[i]) == 0:
+            F.append(0)
     BestLambda = lambdaVector[F.index(max(F))]
     print(F)
     print('-----------------------最优lambda为------------------')

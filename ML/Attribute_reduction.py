@@ -32,7 +32,7 @@ def comIND(a):
             for j in US[1]:
                 if set(i) & set(j):
                     IND.append(set(i)&set(j))
-        for p in range(2, count):
+        for p in range(2,  count+1):
             IND_ = []
             for i in IND:
                 for j in US[p]:
@@ -91,6 +91,10 @@ for i in range(len(R_value)):
             break
 print('----------数据为-----------')
 print(data)
+print('----------依赖度-----------')
+for j in range(len(R)):
+    print(R[j],R_value[j])
+
 print('-----根据依赖度约简后------')
 print(R[i], maxP)
 
@@ -173,4 +177,4 @@ for i in range(len(final_data_)):
     if flag == 1:
         if final_data_[i][-2] != '/':
             print(final_data_[i][-2], end='')
-            print('--->', final_data_[i][-1])
+    print('--->', final_data_[i][-1])
